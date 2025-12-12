@@ -6,7 +6,7 @@
 - NOM :Guillot 
 - PRÉNOM : Ethan
 - GROUPE : A2
-- URL du site :https://github.com/GuillotE-than/SAE-Site-Web.git
+- URL du site :https://jazzofest.netlify.app
 - URL FIGMA :https://www.figma.com/design/xddyNBzMZeLuP4YG9boIID/Untitled?node-id=0-1&t=i24hVYuj37BI5Twe-1
 
 ## Sujet
