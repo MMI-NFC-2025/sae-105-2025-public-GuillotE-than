@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Artistes – Jazz’oFest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --color-bg: #050516;
+        --color-primary: #ff7aa0;
+        --color-secondary: #ffb347;
+        --color-text: #f5f5f5;
+        --color-text-muted: rgba(245, 245, 245, 0.75);
+        --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-main);
+        color: var(--color-text);
+        background: radial-gradient(circle at top, #29124a 0, #050516 55%),
+          radial-gradient(circle at bottom, #1a2738 0, #050516 60%);
+      }
+
+      /* HEADER */
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(5, 5, 22, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .header__inner {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0.7rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header__logo {
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        color: var(--color-primary);
+      }
+
+      /* MENU */
+
+      .header__toggle {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .header__toggle-bar {
+        width: 20px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--color-text);
+      }
+
+      .nav {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(5, 5, 22, 0.97);
+        transform: translateY(-100%);
+        transition: transform 0.25s ease;
+      }
+
+      .nav--open {
+        transform: translateY(0);
+      }
+
+      .nav__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+      }
+
+      .nav__link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-size: 1rem;
+      }
+
+      .nav__link:hover {
+        color: var(--color-primary);
+      }
+
+      .body--no-scroll {
+        overflow: hidden;
+      }
+
+      /* HERO */
+
+      .hero {
+        max-width: 1000px;
+        margin: 3rem auto 2rem;
+        padding: 2.5rem 1.8rem;
+        border-radius: 1.8rem;
+        background: radial-gradient(
+            circle at top left,
+            rgba(255, 122, 160, 0.25),
+            transparent
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(123, 92, 255, 0.25),
+            transparent
+          ),
+          linear-gradient(145deg, #0b0b27, #1a1234);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+        text-align: center;
+      }
+
+      .hero__tagline {
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.7rem;
+        color: var(--color-text-muted);
+        margin-bottom: 0.6rem;
+      }
+
+      .hero__title {
+        font-size: clamp(2.4rem, 6vw, 3.6rem);
+        margin: 0 0 0.3rem;
+      }
+
+      .hero__date {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+      }
+
+      .hero__text {
+        max-width: 550px;
+        margin: 0 auto 1.6rem;
+        color: var(--color-text-muted);
+      }
+
+      .hero__cta {
+        display: inline-block;
+        padding: 0.9rem 2rem;
+        border-radius: 999px;
+        background: linear-gradient(
+          120deg,
+          var(--color-primary),
+          var(--color-secondary)
+        );
+        color: #050516;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+      }
+
+      .content {
+        margin-top: 2rem;
+      }
+
+      .content p {
+        color: var(--color-text-muted);
+      }
+
+      /* FOOTER */
+
+      .footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 1rem 1.5rem 1.6rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+      }
+
+      /* BOUTON RETOUR EN HAUT */
+
+      .back-to-top {
+        position: fixed;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        width: 2.6rem;
+        height: 2.6rem;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--color-secondary), #7b5cff);
+        color: #050516;
+        font-size: 1.3rem;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .back-to-top--visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* DESKTOP */
+
+      @media (min-width: 800px) {
+        .header__toggle {
+          display: none;
+        }
+
+        .nav {
+          position: static;
+          inset: auto;
+          background: none;
+          transform: none;
+        }
+
+        .nav__list {
+          flex-direction: row;
+          gap: 1.5rem;
+        }
+
+        .hero {
+          text-align: left;
+        }
+
+        .hero__text {
+          margin-inline: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header__inner">
+        <a href="#" class="header__logo">Jazz’oFest</a>
+
+        <button
+          class="header__toggle"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <span class="header__toggle-bar"></span>
+          <span class="header__toggle-bar"></span>
+        </button>
+
+        <nav id="main-nav" class="nav nav--closed">
+  <ul class="nav__list">
+    <li class="nav__item">
+      <a href="index.html" class="nav__link">Accueil</a>
+    </li>
+    <li class="nav__item">
+      <a href="programmation.html" class="nav__link">Programmation</a>
+    </li>
+    <li class="nav__item">
+      <a href="artistes.html" class="nav__link">Artistes</a>
+    </li>
+    <li class="nav__item">
+      <a href="infos.html" class="nav__link">Infos pratiques</a>
+    </li>
+    <li class="nav__item">
+      <a href="contact.html" class="nav__link">Contact</a>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </header>
+
+    <main>
+  <section class="hero">
+    <p class="hero__tagline">Line-up 2026</p>
+    <h1 class="hero__title">Les artistes à l’affiche</h1>
+    <p class="hero__date">Jazz, soul, funk & fusion</p>
+    <p class="hero__text">
+      Des talents locaux, des voix émergentes et des invités qui réinventent le jazz.
+    </p>
+  </section>
+
+  <section class="content">
+    <h2>têtes d’affiche</h2>
+
+    <article class="artist-card">
+      <img
+        src="images/Louis Armstrong.jpg"
+        alt="Photo du légendaire Louis Armstrong"
+        style="max-width: 260px; border-radius: 1rem; display: block; margin-bottom: 0.6rem;"
+      />
+      <h3>Louis Armstrong</h3>
+      <p style="color: var(--color-text-muted);">
+        Jazz moderne • Mélange de tradition et d’exploration sonore.
+      </p>
+    </article>
+
+    <article class="artist-card" style="margin-top: 1.5rem;">
+      <img
+        src="images/George Benson.jpg"
+        alt="Photo du guitariste George Benson"
+        style="max-width: 260px; border-radius: 1rem; display: block; margin-bottom: 0.6rem;"
+      />
+      <h3>George Benson</h3>
+      <p style="color: var(--color-text-muted);">
+        Soul / Groove • Une énergie chaleureuse qui fait bouger toute la foule.
+      </p>
+    </article>
+
+    <article class="artist-card" style="margin-top: 1.5rem;">
+      <img
+        src="images/Kool & the Gang.jpg"
+        alt="Photo du groupe Funk Waves Collective"
+        style="max-width: 260px; border-radius: 1rem; display: block; margin-bottom: 0.6rem;"
+      />
+      <h3>Funk Waves Collective</h3>
+      <p style="color: var(--color-text-muted);">
+        Funk / Fusion • Riffs puissants, basses groovy et improvisations.
+      </p>
+    </article>
+
+    <p style="margin-top: 1.5rem;">
+      Tu pourras ajouter d’autres artistes en copiant ces blocs, et remplacer les
+      images par tes propres fichiers dans un dossier <code>images/</code>.
+    </p>
+  </section>
+</main>
+
+    <footer class="footer">
+      <p>© 2026 Jazz’oFest – Feel the Groove, Share the Vibe.</p>
+    </footer>
+
+    <button class="back-to-top" aria-label="Revenir en haut">↑</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // MENU BURGER
+        const toggleBtn = document.querySelector(".header__toggle");
+        const nav = document.querySelector("#main-nav");
+        const body = document.body;
+
+        if (toggleBtn && nav) {
+          const NAV_OPEN_CLASS = "nav--open";
+          const BODY_LOCK_CLASS = "body--no-scroll";
+
+          function openNav() {
+            toggleBtn.setAttribute("aria-expanded", "true");
+            nav.classList.add(NAV_OPEN_CLASS);
+            body.classList.add(BODY_LOCK_CLASS);
+          }
+
+          function closeNav() {
+            toggleBtn.setAttribute("aria-expanded", "false");
+            nav.classList.remove(NAV_OPEN_CLASS);
+            body.classList.remove(BODY_LOCK_CLASS);
+          }
+
+          function toggleNav() {
+            const isOpen = toggleBtn.getAttribute("aria-expanded") === "true";
+            if (isOpen) {
+              closeNav();
+            } else {
+              openNav();
+            }
+          }
+
+          toggleBtn.addEventListener("click", toggleNav);
+
+          nav.addEventListener("click", (event) => {
+            const link = event.target.closest("a");
+            if (link) {
+              closeNav();
+            }
+          });
+
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+              closeNav();
+            }
+          });
+        }
+
+        // BOUTON RETOUR EN HAUT
+        const backToTopBtn = document.querySelector(".back-to-top");
+
+        if (backToTopBtn) {
+          const VISIBLE_CLASS = "back-to-top--visible";
+
+          function toggleButtonVisibility() {
+            if (window.scrollY > 300) {
+              backToTopBtn.classList.add(VISIBLE_CLASS);
+            } else {
+              backToTopBtn.classList.remove(VISIBLE_CLASS);
+            }
+          }
+
+          window.addEventListener("scroll", toggleButtonVisibility);
+
+          backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

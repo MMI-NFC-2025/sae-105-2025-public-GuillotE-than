@@ -3,9 +3,9 @@
 
 À compléter :
 
-- NOM :
-- PRÉNOM :
-- GROUPE :
+- NOM :Guillot 
+- PRÉNOM : Ethan
+- GROUPE : A2
 - URL du site :
 - URL FIGMA :
 
